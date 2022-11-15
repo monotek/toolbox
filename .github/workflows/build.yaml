@@ -6,16 +6,38 @@ on: pull_request
 jobs:
   docker:
     name: Build Docker image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out source code
         uses: actions/checkout@v3
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: amd64,arm64
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build
+      - name: Docker metadata action
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            toolbox-local
+          tags: |
+            type=raw,latest
+
+      - name: Build Docker image
         uses: docker/build-push-action@v3
         with:
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=docker,dest=/tmp/toolbox-local.tar
           platforms: linux/amd64
           push: false
+          tags: ${{ steps.meta.outputs.tags }}
+      
+      - name: Run Docker image
+        run: |
+          docker load --input /tmp/toolbox-local.tar
+          docker run --name toolbox toolbox-local:latest
