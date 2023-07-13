@@ -5,7 +5,7 @@ set -ex
 # install apk packages
 apk update 
 apk --no-cache upgrade
-apk --no-cache add ca-certificates curl openssh openssl jq rsync util-linux-misc
+apk --no-cache add ca-certificates curl libcap openssh openssl jq rsync util-linux-misc
 
 # add toolbox user
 adduser -S toolbox toolbox
