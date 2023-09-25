@@ -29,7 +29,7 @@ jobs:
             type=raw,latest
 
       - name: Build Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=docker,dest=/tmp/toolbox-local.tar
