@@ -16,6 +16,11 @@ else
     ARCH=amd64
 fi
 
+# install cuelang
+curl --silent --show-error --fail --location --output /tmp/cue.tar.gz https://github.com/cue-lang/cue/releases/download/"${CUELANG_VERSION}"/cue_"${CUELANG_VERSION}"_linux_"${ARCH}".tar.gz
+tar -C /usr/local/bin -xf /tmp/cue.tar.gz cue
+rm /tmp/cue.tar.gz
+
 # install helm
 curl --silent --show-error --fail --location --output /tmp/helm.tar.gz https://get.helm.sh/helm-"${HELM_VERSION}"-linux-"${ARCH}".tar.gz
 mkdir /tmp/helm
@@ -43,7 +48,7 @@ tar -C /usr/local/bin -xf /tmp/kustomize.tar.gz kustomize
 rm /tmp/kustomize.tar.gz
 
 # install sops
-curl --silent --show-error --fail --location --output /usr/local/bin/sops https://github.com/mozilla/sops/releases/download/"${SOPS_VERSION}"/sops-"${SOPS_VERSION}".linux."${ARCH}"
+curl --silent --show-error --fail --location --output /usr/local/bin/sops https://github.com/getsops/sops/releases/download/"${SOPS_VERSION}"/sops-"${SOPS_VERSION}".linux."${ARCH}"
 chmod 755 /usr/local/bin/sops
 
 # install terraform
