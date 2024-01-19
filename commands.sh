@@ -1,6 +1,12 @@
 #!/usr/bin/env sh
 
 echo " -------------- "
+echo "| CUE VERSION |"
+echo " -------------- "
+cue version
+echo ""
+
+echo " -------------- "
 echo "| HELM VERSION |"
 echo " -------------- "
 helm version
