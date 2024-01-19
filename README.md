@@ -2,6 +2,12 @@
 
 Alpine based Docker image, containing command-line tools.
 
+## Usage
+
+```bash
+docker run -it --rm ghcr.io/monotek/toolbox
+```
+
 ## Command-line tools
 
 * cue
