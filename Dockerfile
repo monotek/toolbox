@@ -24,4 +24,6 @@ VOLUME /data
 
 USER toolbox
 
+#checkov:skip=CKV_DOCKER_2:We don't need Docker HEALTHCHECK in Kubernetes
+
 ENTRYPOINT ["/entrypoint.sh"]

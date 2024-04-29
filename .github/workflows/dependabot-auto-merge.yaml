@@ -1,5 +1,7 @@
 name: dependabot-auto-merge
 
+permissions: read-all
+
 on:
   pull_request:
 
