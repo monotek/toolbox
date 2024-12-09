@@ -21,6 +21,8 @@ jobs:
         uses: github/super-linter/slim@v7
         env:
           DEFAULT_BRANCH: main
+          FIX_MARKDOWN_PRETTIER: false
+          FIX_YAML_PRETTIER: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: .github/linters
           VALIDATE_JSCPD: false
