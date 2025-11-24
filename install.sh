@@ -5,7 +5,7 @@ set -ex
 # install apk packages
 apk update 
 apk --no-cache upgrade
-apk --no-cache add ca-certificates curl helm kind kubectl kustomize libcap openssh openssl jq rsync util-linux-misc yq-go
+apk --no-cache add ca-certificates cue-cli curl helm kind kubectl kustomize libcap openssh openssl jq rsync util-linux-misc yq-go
 
 # add toolbox user
 adduser -S toolbox toolbox
@@ -15,11 +15,6 @@ if [ "$(lscpu | grep Architecture | awk '{print $2}')" = "aarch64" ]; then
 else
     ARCH=amd64
 fi
-
-# install cuelang
-curl --silent --show-error --fail --location --output /tmp/cue.tar.gz https://github.com/cue-lang/cue/releases/download/"${CUELANG_VERSION}"/cue_"${CUELANG_VERSION}"_linux_"${ARCH}".tar.gz
-tar -C /usr/local/bin -xf /tmp/cue.tar.gz cue
-rm /tmp/cue.tar.gz
 
 # install kubeconform
 curl --silent --show-error --fail --location --output /tmp/kubeconform.tar.gz https://github.com/yannh/kubeconform/releases/download/"${KUBECONFORM_VERSION}"/kubeconform-linux-"${ARCH}".tar.gz
