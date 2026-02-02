@@ -43,3 +43,26 @@ jobs:
         run: |
           docker load --input /tmp/toolbox-local.tar
           docker run --name toolbox toolbox-local:latest
+
+  auto-merge:
+    permissions:
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-24.04
+    needs: docker
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto-merge
+        # if: |
+        #   steps.metadata.outputs.update-type != 'version-update:semver-major'
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
