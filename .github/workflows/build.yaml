@@ -48,7 +48,6 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-      workflows: write
     runs-on: ubuntu-24.04
     needs: docker
     if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
